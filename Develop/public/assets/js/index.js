@@ -1,5 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
-
 let noteForm;
 let noteTitle;
 let noteText;
@@ -76,7 +74,6 @@ const renderActiveNote = () => {
 
 const handleNoteSave = () => {
   const newNote = {
-    id: uuidv4(),
     title: noteTitle.value,
     text: noteText.value
   };
@@ -88,6 +85,7 @@ const handleNoteSave = () => {
 
 // Delete the clicked note
 const handleNoteDelete = (e) => {
+  // Prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();
 
   const note = e.target;
@@ -105,12 +103,14 @@ const handleNoteDelete = (e) => {
 
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
+  console.log('Event target:', e.target); // Add this line
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  console.log('activeNote:', activeNote); // Add this line
   renderActiveNote();
 };
 
-// Sets the activeNote to an empty object and allows the user to enter a new note
+// Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   show(clearBtn);
