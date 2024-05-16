@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 let noteForm;
 let noteTitle;
 let noteText;
@@ -63,7 +65,6 @@ const renderActiveNote = () => {
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
-    console.log(noteTitle.value, noteText.value)
   } else {
     hide(newNoteBtn);
     noteTitle.removeAttribute('readonly');
@@ -74,9 +75,8 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
-  const id = uuid.v4(); // Generate UUID here
   const newNote = {
-    id: id, // Use the generated UUID here
+    id: uuidv4(),
     title: noteTitle.value,
     text: noteText.value
   };
@@ -112,7 +112,6 @@ const handleNoteView = (e) => {
     target = target.parentElement;
   }
   activeNote = JSON.parse(target.getAttribute('data-note'));
-  console.log(activeNote);
   renderActiveNote();
 };
 
