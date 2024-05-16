@@ -1,5 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
-
 let noteForm;
 let noteTitle;
 let noteText;
@@ -76,8 +74,9 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
+  const id = uuid.v4(); // Generate UUID here
   const newNote = {
-    id: uuidv4(),
+    id: id, // Use the generated UUID here
     title: noteTitle.value,
     text: noteText.value
   };
