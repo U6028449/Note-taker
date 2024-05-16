@@ -65,6 +65,7 @@ const renderActiveNote = () => {
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
+    console.log(noteTitle.value, noteText.value)
   } else {
     hide(newNoteBtn);
     noteTitle.removeAttribute('readonly');
@@ -112,6 +113,7 @@ const handleNoteView = (e) => {
     target = target.parentElement;
   }
   activeNote = JSON.parse(target.getAttribute('data-note'));
+  console.log(activeNote);
   renderActiveNote();
 };
 
