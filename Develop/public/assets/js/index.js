@@ -104,8 +104,21 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
-  activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
-  renderActiveNote();
+  let element = e.target;
+
+  // If the clicked element is not the span, find the parent li
+  if (!element.classList.contains('list-group-item')) {
+    element = element.closest('.list-group-item');
+  }
+
+  const note = element.getAttribute('data-note');
+  console.log('Clicked note:', note); // Add this line
+
+  if (note) {
+    activeNote = JSON.parse(note);
+    console.log('Parsed note:', activeNote); // Add this line
+    renderActiveNote();
+  }
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
@@ -170,9 +183,9 @@ const renderNoteList = async (notes) => {
   }
 
   jsonNotes.forEach((note) => {
+    console.log('Rendering note:', note); // Add this line
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
-
     noteListItems.push(li);
   });
 
@@ -184,7 +197,7 @@ const renderNoteList = async (notes) => {
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
-if (window.location.pathname === '/notes') {
+if (noteForm) {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
   clearBtn.addEventListener('click', renderActiveNote);
